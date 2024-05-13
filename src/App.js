@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Redirect } from 'react-router-dom';
+
+import Search from './pages/search';
+import History from './pages/history';
+import MainHeader from './components/MainHeader';
+import SearchContext from './store/SearchContext';
+import { useMemo, useState } from 'react';
 
 function App() {
+  const [searchHistory, setSearchHistory] = useState('');
+
+  // memorize search history using useMemo
+  const providerSearch = useMemo(
+    () => ({ searchHistory, setSearchHistory }),
+    [searchHistory, setSearchHistory]
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <MainHeader />
+      <main>
+        <Route path="/" exact>
+          <Redirect to="/home" />
+        </Route>
+        <SearchContext.Provider value={providerSearch}>
+          <Route path="/search" component={Search}>
+            <Search />
+          </Route>
+          <Route path="/history" component={History}>
+            <History />
+          </Route>
+        </SearchContext.Provider>
+      </main>
     </div>
   );
 }
