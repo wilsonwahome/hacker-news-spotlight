@@ -2,6 +2,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import Search from './pages/search';
 import History from './pages/history';
+import Home from './pages/Home';
 import MainHeader from './components/MainHeader';
 import SearchContext from './store/SearchContext';
 import { useMemo, useState } from 'react';
@@ -22,13 +23,10 @@ function App() {
         <Route path="/" exact>
           <Redirect to="/home" />
         </Route>
+        <Route path="/home" component={Home} />
         <SearchContext.Provider value={providerSearch}>
-          <Route path="/search" component={Search}>
-            <Search />
-          </Route>
-          <Route path="/history" component={History}>
-            <History />
-          </Route>
+          <Route path="/search" component={Search} />
+          <Route path="/history" component={History} />
         </SearchContext.Provider>
       </main>
     </div>
