@@ -10,6 +10,8 @@
 
 ![project preview](./image.png)
 
+- [link to the website](https://hacker-news-spotlight.vercel.app/search/)
+
 ## Technologies Used
 
 - React
